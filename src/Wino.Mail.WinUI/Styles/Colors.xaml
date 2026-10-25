@@ -24,6 +24,7 @@
             <SolidColorBrush x:Key="WelcomeOverlayBrush">Transparent</SolidColorBrush>
             <SolidColorBrush x:Key="MailItemFlaggedBackgroundBrush" Color="#ffffcc" />
             <SolidColorBrush x:Key="InformationBrush">#34495e</SolidColorBrush>
+            <SolidColorBrush x:Key="FolderAreaBackgroundBrush" Color="#0F000000" />
         </ResourceDictionary>
         <ResourceDictionary x:Name="Dark">
             <SolidColorBrush x:Key="AttachmentBrush">#fdcb6e</SolidColorBrush>
@@ -34,6 +35,7 @@
             <SolidColorBrush x:Key="WelcomeOverlayBrush">Transparent</SolidColorBrush>
             <SolidColorBrush x:Key="MailItemFlaggedBackgroundBrush" Color="#576574" />
             <SolidColorBrush x:Key="InformationBrush">#ecf0f1</SolidColorBrush>
+            <SolidColorBrush x:Key="FolderAreaBackgroundBrush" Color="#18FFFFFF" />
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 </ResourceDictionary>

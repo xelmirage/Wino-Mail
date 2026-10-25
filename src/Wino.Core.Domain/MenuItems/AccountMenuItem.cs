@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -41,11 +40,6 @@ public partial class AccountMenuItem : MenuItemBase<MailAccount, MenuItemBase<IM
     /// </summary>
     [ObservableProperty]
     public partial string SynchronizationStatus { get; set; } = string.Empty;
-
-    /// <summary>
-    /// Folders loaded for this account. The shell menu shows them directly beneath the account.
-    /// </summary>
-    public ObservableCollection<IMenuItem> FolderItems { get; set; } = [];
 
     public bool IsAttentionRequired => AttentionReason != AccountAttentionReason.None;
     public bool SupportsMailAccountActions => true;
