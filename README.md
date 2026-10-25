@@ -16,6 +16,27 @@
 
 ![Wino Mail screenshot](https://user-images.githubusercontent.com/12009960/232114528-2d2c8e3c-dbe7-429a-94e0-6aecc73bdf70.png)
 
+## This fork
+
+This is a fork of [bkaankose/Wino-Mail](https://github.com/bkaankose/Wino-Mail) maintained at
+[xelmirage/Wino-Mail](https://github.com/xelmirage/Wino-Mail). It follows the upstream application and adds the
+changes below. Nothing else in this README is specific to the fork.
+
+### Fork changes
+
+- **Higher free account limit.** The free mail account limit is raised from 3 to 99
+  (`FreeAccountLimit` in `src/Wino.Core.Domain/Constants.cs`).
+- **User-approved server certificates.** During IMAP, SMTP, and POP3 account setup, a certificate that cannot be
+  validated now asks the user whether to continue instead of failing outright. Accepting pins the certificate
+  fingerprint to the account, so later mail synchronization keeps trusting that server. The trust covers only the
+  same endpoint and certificate; a replaced certificate asks again.
+- **Application-wide HTTP proxy.** Settings → App Preferences has a proxy switch and address/port fields. It
+  applies to mail connections (IMAP/SMTP/POP3) and to account, calendar, and API requests made over HTTP. A
+  per-account proxy configured on the IMAP settings page still takes precedence over the global proxy.
+- **Chinese translations** for the new settings.
+- **Sideload packaging identity.** The Windows manifest uses the `WinoMail.Sideload` identity so a local build can
+  be installed next to a Microsoft Store installation.
+
 ## Motivation
 
 I'm a big fan of Windows Mail & Calendars due to its simplicity. Personally, I find it more intuitive for daily use cases compared to Outlook desktop and the new WebView2 powered Outlook version. Seeing [Microsoft deprecating it](https://support.microsoft.com/en-us/office/outlook-for-windows-the-future-of-mail-calendar-and-people-on-windows-11-715fc27c-e0f4-4652-9174-47faa751b199#:~:text=The%20Mail%20and%20Calendar%20applications,will%20no%20longer%20be%20supported.) dragged me into starting to work on Wino a couple of years ago. Wino's main motivation is to bring all the existing functionality from Mail & Calendars over time without changing the user experience that millions have loved since the Windows 8 days in Mail & Calendars.
