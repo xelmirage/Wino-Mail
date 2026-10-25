@@ -35,6 +35,7 @@ public sealed partial class CalendarAccountMenuItem : MenuItemBase<GroupedAccoun
     public AccountDetailsTab AccountDetailsTab => global::Wino.Core.Domain.Models.Navigation.AccountDetailsTab.Calendar;
     public bool SupportsAccountSynchronization => !IsAttentionRequired;
     public bool SelectsOnInvoked => true;
+    public System.Collections.ObjectModel.ObservableCollection<IMenuItem> FolderItems { get; } = [];
 
     /// <summary>A sign-in that is still pending can only fail, so the row offers Fix instead.</summary>
     public Task SynchronizeAccountAsync()

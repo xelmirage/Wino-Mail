@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Wino.Core.Domain.Entities.Mail;
@@ -24,6 +25,11 @@ public interface IAccountNavigationMenuItem : IMenuItem, INotifyPropertyChanged
     bool SupportsMailAccountActions { get; }
     AccountDetailsTab AccountDetailsTab { get; }
     bool SupportsAccountSynchronization { get; }
+
+    /// <summary>
+    /// Children shown beneath the account in the shell menu.
+    /// </summary>
+    ObservableCollection<IMenuItem> FolderItems { get; }
 
     /// <summary>
     /// Whether invoking the row is a selection. Mail and tasks expand an account

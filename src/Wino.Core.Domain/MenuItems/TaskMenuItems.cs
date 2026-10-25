@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Wino.Core.Domain.Entities.Shared;
@@ -57,6 +58,7 @@ public sealed class AccountTaskListAccountMenuItem : MenuItemBase<MailAccount, I
     public bool IsAttentionRequired => Parameter.RequiresAttention(WinoApplicationMode.Tasks);
     public bool SupportsMailAccountActions => false;
     public AccountDetailsTab AccountDetailsTab => global::Wino.Core.Domain.Models.Navigation.AccountDetailsTab.ToDo;
+    public ObservableCollection<IMenuItem> FolderItems { get; } = [];
 
     // A pending sign-in can only fail, so the row offers Fix instead of Sync.
     public bool SupportsAccountSynchronization => !IsAttentionRequired && Parameter is

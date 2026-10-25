@@ -1102,7 +1102,7 @@ public partial class MailAppShellViewModel : MailBaseViewModel,
             RefreshShellSynchronizationState();
         }).ConfigureAwait(false);
 
-        await MenuItems.ReplaceFoldersAsync(folders).ConfigureAwait(false);
+        await MenuItems.ReplaceFoldersAsync(folders, clickedBaseAccountMenuItem).ConfigureAwait(false);
 
         await UpdateUnreadItemCountAsync().ConfigureAwait(false);
         await MenuItems.SetAccountMenuItemEnabledStatusAsync(true).ConfigureAwait(false);
@@ -1709,7 +1709,7 @@ public partial class MailAppShellViewModel : MailBaseViewModel,
             .GetAccountFoldersForDisplayAsync(loadedAccountMenuItem)
             .ConfigureAwait(false);
 
-        await MenuItems.ReplaceFoldersAsync(folders).ConfigureAwait(false);
+        await MenuItems.ReplaceFoldersAsync(folders, loadedAccountMenuItem).ConfigureAwait(false);
         await UpdateUnreadItemCountAsync().ConfigureAwait(false);
 
         IBaseFolderMenuItem selectedFolderMenuItem = null;

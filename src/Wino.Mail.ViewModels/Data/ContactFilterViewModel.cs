@@ -47,6 +47,7 @@ public partial class ContactFilterViewModel : MenuItemBase, IMenuItemDropTarget,
     internal Func<Guid, Task> SynchronizeAccountRequested { get; set; }
 
     public ContactFilterKind Kind { get; }
+    public System.Collections.ObjectModel.ObservableCollection<IMenuItem> FolderItems { get; } = [];
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(AccountName))]
     public partial string Name { get; set; }

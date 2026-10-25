@@ -66,6 +66,7 @@
             IsActiveAccount="{x:Bind IsSelected, Mode=OneWay}"
             IsEnabled="{x:Bind IsNavigationEnabled, Mode=OneWay}"
             IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}"
+            MenuItemsSource="{x:Bind FolderItems, Mode=OneWay}"
             SelectsOnInvoked="{x:Bind SelectsOnInvoked, Mode=OneTime}"
             Style="{StaticResource SingleAccountNavigationViewItemTemplate}">
             <muxc:NavigationViewItem.Icon>
@@ -144,6 +145,7 @@
             IsActiveAccount="{x:Bind IsSelected, Mode=OneWay}"
             IsEnabled="{x:Bind IsNavigationEnabled, Mode=OneWay}"
             IsExpanded="{x:Bind IsExpanded, Mode=TwoWay}"
+            MenuItemsSource="{x:Bind FolderItems, Mode=OneWay}"
             SelectsOnInvoked="{x:Bind SelectsOnInvoked, Mode=OneTime}"
             Style="{StaticResource SingleAccountNavigationViewItemTemplate}">
             <muxc:NavigationViewItem.Icon>
