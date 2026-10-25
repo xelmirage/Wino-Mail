@@ -13,15 +13,23 @@ using Wino.Core.Domain.Enums;
 using Wino.Core.Domain.Interfaces;
 using Wino.Core.Domain.Models;
 using Wino.Core.Domain.Models.Calendar;
+using Wino.Core.Domain.Models.Connectivity;
 using Wino.Core.Domain.Models.Reader;
 using Wino.Core.Domain.Translations;
 using Wino.Messaging.Client.Shell;
 
 namespace Wino.Services;
 
-public partial class PreferencesService(IConfigurationService configurationService) : ObservableObject, IPreferencesService
+public partial class PreferencesService : ObservableObject, IPreferencesService
 {
-    private readonly IConfigurationService _configurationService = configurationService;
+    private readonly IConfigurationService _configurationService;
+
+    public PreferencesService(IConfigurationService configurationService)
+    {
+        _configurationService = configurationService;
+
+        WinoProxySettings.Apply(IsApplicationProxyEnabled, ApplicationProxyServer, ApplicationProxyPort);
+    }
 
     public event EventHandler<string>? PreferenceChanged;
 
@@ -30,6 +38,9 @@ public partial class PreferencesService(IConfigurationService configurationServi
         base.OnPropertyChanged(e);
 
         var propertyName = e.PropertyName ?? string.Empty;
+
+        if (propertyName is nameof(IsApplicationProxyEnabled) or nameof(ApplicationProxyServer) or nameof(ApplicationProxyPort))
+            WinoProxySettings.Apply(IsApplicationProxyEnabled, ApplicationProxyServer, ApplicationProxyPort);
 
         PreferenceChanged?.Invoke(this, propertyName);
         WeakReferenceMessenger.Default.Send(new PreferenceChangedMessage(propertyName));
@@ -958,6 +969,24 @@ public partial class PreferencesService(IConfigurationService configurationServi
             OnPropertyChanged(nameof(AppCloseBehavior));
             OnPropertyChanged(nameof(IsSystemTrayIconEnabled));
         }
+    }
+
+    public bool IsApplicationProxyEnabled
+    {
+        get => _configurationService.Get(nameof(IsApplicationProxyEnabled), false);
+        set => SetPropertyAndSave(nameof(IsApplicationProxyEnabled), value);
+    }
+
+    public string ApplicationProxyServer
+    {
+        get => _configurationService.Get(nameof(ApplicationProxyServer), string.Empty);
+        set => SetPropertyAndSave(nameof(ApplicationProxyServer), value);
+    }
+
+    public string ApplicationProxyPort
+    {
+        get => _configurationService.Get(nameof(ApplicationProxyPort), string.Empty);
+        set => SetPropertyAndSave(nameof(ApplicationProxyPort), value);
     }
 
     public bool IsWinoAccountButtonHidden

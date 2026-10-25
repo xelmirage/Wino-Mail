@@ -4,11 +4,11 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using MailKit.Net.Pop3;
-using MailKit.Net.Proxy;
 using MailKit.Security;
 using Wino.Core.Domain.Entities.Shared;
 using Wino.Core.Domain.Enums;
 using Wino.Core.Domain.Interfaces;
+using Wino.Core.Domain.Models.Connectivity;
 
 namespace Wino.Core.Integration;
 
@@ -26,11 +26,10 @@ internal static class MailKitPop3ConnectionPolicy
         var host = serverInformation.IncomingServer;
         var port = int.Parse(serverInformation.IncomingServerPort);
 
-        if (!string.IsNullOrWhiteSpace(serverInformation.ProxyServer))
+        var proxyClient = WinoProxySettings.CreateMailProxy(serverInformation);
+        if (proxyClient != null)
         {
-            client.ProxyClient = new HttpProxyClient(
-                serverInformation.ProxyServer,
-                int.Parse(serverInformation.ProxyServerPort));
+            client.ProxyClient = proxyClient;
         }
 
         var storedTrust = certificateTrustService == null

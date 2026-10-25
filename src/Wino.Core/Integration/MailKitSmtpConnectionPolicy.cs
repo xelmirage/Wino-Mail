@@ -3,12 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using MailKit.Net.Proxy;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Wino.Core.Domain.Entities.Shared;
 using Wino.Core.Domain.Enums;
 using Wino.Core.Domain.Interfaces;
+using Wino.Core.Domain.Models.Connectivity;
 
 namespace Wino.Core.Integration;
 
@@ -24,11 +24,13 @@ internal static class MailKitSmtpConnectionPolicy
         var port = int.Parse(serverInformation.OutgoingServerPort);
         var corrected = serverInformation.ConnectionPolicyVersion == ImapConnectionPolicyVersion.Corrected;
 
-        if (corrected && !string.IsNullOrWhiteSpace(serverInformation.ProxyServer))
+        if (corrected)
         {
-            client.ProxyClient = new HttpProxyClient(
-                serverInformation.ProxyServer,
-                int.Parse(serverInformation.ProxyServerPort));
+            var proxyClient = WinoProxySettings.CreateMailProxy(serverInformation);
+            if (proxyClient != null)
+            {
+                client.ProxyClient = proxyClient;
+            }
         }
 
         var storedTrust = certificateTrustService == null

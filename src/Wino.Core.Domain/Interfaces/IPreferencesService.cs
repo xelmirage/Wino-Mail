@@ -192,6 +192,21 @@ public interface IPreferencesService : INotifyPropertyChanged
     AppCloseBehavior AppCloseBehavior { get; set; }
 
     /// <summary>
+    /// Setting: Route application network connections through an HTTP proxy.
+    /// </summary>
+    bool IsApplicationProxyEnabled { get; set; }
+
+    /// <summary>
+    /// Setting: Host name or IP address of the application-wide HTTP proxy.
+    /// </summary>
+    string ApplicationProxyServer { get; set; }
+
+    /// <summary>
+    /// Setting: Port of the application-wide HTTP proxy.
+    /// </summary>
+    string ApplicationProxyPort { get; set; }
+
+    /// <summary>
     /// Serializes the current syncable preferences snapshot.
     /// </summary>
     string ExportPreferences();

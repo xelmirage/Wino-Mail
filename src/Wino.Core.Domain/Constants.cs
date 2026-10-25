@@ -53,6 +53,6 @@ public static class Constants
     /// <summary>
     /// How many mail accounts can be added without the Unlimited Accounts add-on.
     /// </summary>
-    public const int FreeAccountLimit = 3;
+    public const int FreeAccountLimit = 99;
 }
 
