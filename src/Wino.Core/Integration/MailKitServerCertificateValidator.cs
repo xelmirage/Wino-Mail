@@ -12,9 +12,6 @@ namespace Wino.Core.Integration;
 
 internal static class MailKitServerCertificateValidator
 {
-    private const X509ChainStatusFlags TrustableChainErrors =
-        X509ChainStatusFlags.UntrustedRoot | X509ChainStatusFlags.PartialChain;
-
     public static bool Validate(
         X509Certificate certificate,
         X509Chain chain,
@@ -48,11 +45,6 @@ internal static class MailKitServerCertificateValidator
         var certificate2 = certificate == null ? null : new X509Certificate2(certificate);
         var chainStatuses = chain?.ChainStatus ?? [];
         var chainFlags = chainStatuses.Aggregate(X509ChainStatusFlags.NoError, (current, status) => current | status.Status);
-        var now = DateTime.UtcNow;
-        var hasOnlyTrustableChainErrors = chainFlags != X509ChainStatusFlags.NoError &&
-                                          (chainFlags & ~TrustableChainErrors) == X509ChainStatusFlags.NoError;
-        var hasOnlyChainPolicyError = sslPolicyErrors == SslPolicyErrors.RemoteCertificateChainErrors;
-        var isWithinValidity = certificate2 != null && now >= certificate2.NotBefore.ToUniversalTime() && now <= certificate2.NotAfter.ToUniversalTime();
 
         return new MailServerCertificateFailure
         {
@@ -69,19 +61,18 @@ internal static class MailKitServerCertificateValidator
             ValidToUtc = certificate2?.NotAfter.ToUniversalTime() ?? DateTime.MinValue,
             CertificateSha256 = certificate2 == null ? string.Empty : Convert.ToHexString(SHA256.HashData(certificate2.RawData)),
             CertificateRawData = certificate2?.RawData ?? [],
-            CanTrust = hasOnlyChainPolicyError && hasOnlyTrustableChainErrors && isWithinValidity
+            CanTrust = certificate2 != null
         };
     }
 
     private static bool TrustMatches(MailServerCertificateTrust trust, MailServerCertificateFailure failure)
     {
-        if (trust == null || failure == null || DateTime.UtcNow > trust.ValidToUtc || DateTime.UtcNow < trust.ValidFromUtc)
+        if (trust == null || failure == null)
             return false;
 
         if (trust.Protocol != failure.Protocol ||
             !string.Equals(NormalizeHost(trust.Host), NormalizeHost(failure.Host), StringComparison.Ordinal) ||
-            trust.Port != failure.Port ||
-            trust.AcceptedChainStatusFlags != failure.ChainStatusFlags)
+            trust.Port != failure.Port)
         {
             return false;
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Net;
@@ -9,7 +9,6 @@ using System.Net.Sockets;
 using System.Threading.Tasks;
 using MailKit;
 using MailKit.Net.Imap;
-using MailKit.Net.Proxy;
 using MailKit.Security;
 using Serilog;
 using Wino.Core.Domain.Entities.Shared;
@@ -613,11 +612,10 @@ public class ImapClientPool : IDisposable, IAsyncDisposable
             ? new WinoImapClient()
             : new WinoImapClient(ImapClientPoolOptions.ProtocolLoggerFactory());
 
-        if (!string.IsNullOrEmpty(_customServerInformation.ProxyServer))
+        var proxyClient = WinoProxySettings.CreateMailProxy(_customServerInformation);
+        if (proxyClient != null)
         {
-            client.ProxyClient = new HttpProxyClient(
-                _customServerInformation.ProxyServer,
-                int.Parse(_customServerInformation.ProxyServerPort));
+            client.ProxyClient = proxyClient;
         }
 
         _logger.Debug("Created IMAP connection {ConnectionId} for {Server} ({Purpose}). Tracked pool size: {Count}.",

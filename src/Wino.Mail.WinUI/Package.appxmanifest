@@ -28,8 +28,8 @@
 	</Extensions>
 	
   <Identity
-    Name="58272BurakKSE.WinoMailPreview"
-    Publisher="CN=51FBDAF3-E212-4149-89A2-A2636B3BC911"
+    Name="WinoMail.Sideload"
+    Publisher="CN=Burak Kaan Köse, O=Burak Kaan Köse, L=Wroclaw, S=Dolnośląskie, C=PL"
     Version="2.2.6.0" />
 
   <mp:PhoneIdentity PhoneProductId="7b7e90e9-cc55-4409-9769-99b4b5ed6e9b" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
@@ -91,7 +91,7 @@
 				<com:ComServer>
 					<com:ExeServer Executable="Wino.Mail.WinUI.exe" Arguments="--wino-mail --wino-session-start" DisplayName="Wino Mail startup service"
 					               LaunchAndActivationPermission="O:PSG:BUD:(A;;11;;;IU)(A;;11;;;S-1-15-2-1)S:(ML;;NX;;;LW)">
-						<com:Class Id="13437e7f-4198-4d62-bf1a-8cf5186397b3" DisplayName="Wino Mail startup service" />
+						<com:Class Id="f21ad7e1-2a93-434d-b325-f6749513245c" DisplayName="Wino Mail startup service" />
 					</com:ExeServer>
 				</com:ComServer>
 			</com:Extension>
@@ -136,12 +136,12 @@
 
 			<!-- Toast activation: Windows starts the notification host, not the UI executable. -->
 			<desktop:Extension Category="windows.toastNotificationActivation">
-				<desktop:ToastNotificationActivation ToastActivatorCLSID="b67c209f-9f3b-4220-ad8f-828073616967" />
+				<desktop:ToastNotificationActivation ToastActivatorCLSID="c05cb457-54df-542f-abe8-900789e71cb5" />
 			</desktop:Extension>
 			<com:Extension Category="windows.comServer">
 				<com:ComServer>
 					<com:ExeServer Executable="Wino.NotificationHost.exe" Arguments="----AppNotificationActivated:" DisplayName="Wino Mail notification host">
-						<com:Class Id="b67c209f-9f3b-4220-ad8f-828073616967" DisplayName="Wino Mail notification host" />
+						<com:Class Id="c05cb457-54df-542f-abe8-900789e71cb5" DisplayName="Wino Mail notification host" />
 					</com:ExeServer>
 				</com:ComServer>
 			</com:Extension>
@@ -191,12 +191,12 @@
         </uap:Extension>
 
         <desktop:Extension Category="windows.toastNotificationActivation">
-          <desktop:ToastNotificationActivation ToastActivatorCLSID="a075d82f-106f-4007-b69a-5c4135b2ac58" />
+          <desktop:ToastNotificationActivation ToastActivatorCLSID="9d4925a6-318b-5fb6-88af-bf6ab8b78358" />
         </desktop:Extension>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
             <com:ExeServer Executable="Wino.NotificationHost.exe" Arguments="----AppNotificationActivated:" DisplayName="Wino Calendar notification host">
-              <com:Class Id="a075d82f-106f-4007-b69a-5c4135b2ac58" DisplayName="Wino Calendar notification host" />
+              <com:Class Id="9d4925a6-318b-5fb6-88af-bf6ab8b78358" DisplayName="Wino Calendar notification host" />
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>
@@ -224,12 +224,12 @@
 
       <Extensions>
         <desktop:Extension Category="windows.toastNotificationActivation">
-          <desktop:ToastNotificationActivation ToastActivatorCLSID="427688f0-3b7f-4f5b-938f-f76535aa7970" />
+          <desktop:ToastNotificationActivation ToastActivatorCLSID="65b3fc7c-599d-5310-9b25-1cbf604862bc" />
         </desktop:Extension>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
             <com:ExeServer Executable="Wino.NotificationHost.exe" Arguments="----AppNotificationActivated:" DisplayName="Wino People notification host">
-              <com:Class Id="427688f0-3b7f-4f5b-938f-f76535aa7970" DisplayName="Wino People notification host" />
+              <com:Class Id="65b3fc7c-599d-5310-9b25-1cbf604862bc" DisplayName="Wino People notification host" />
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>
@@ -257,12 +257,12 @@
 
       <Extensions>
         <desktop:Extension Category="windows.toastNotificationActivation">
-          <desktop:ToastNotificationActivation ToastActivatorCLSID="a5851908-6870-4384-912c-be36b23f142f" />
+          <desktop:ToastNotificationActivation ToastActivatorCLSID="9658d7a7-44ed-51fe-abe0-b5e70446124e" />
         </desktop:Extension>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
             <com:ExeServer Executable="Wino.NotificationHost.exe" Arguments="----AppNotificationActivated:" DisplayName="Wino To Do notification host">
-              <com:Class Id="a5851908-6870-4384-912c-be36b23f142f" DisplayName="Wino To Do notification host" />
+              <com:Class Id="9658d7a7-44ed-51fe-abe0-b5e70446124e" DisplayName="Wino To Do notification host" />
             </com:ExeServer>
           </com:ComServer>
         </com:Extension>

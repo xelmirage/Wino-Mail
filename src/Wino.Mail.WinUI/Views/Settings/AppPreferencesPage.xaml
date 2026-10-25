@@ -69,6 +69,36 @@
         </controls:SettingsCard>
 
         <controls:SettingsCard
+            AutomationProperties.AutomationId="AppPreferencesPageProxyCard"
+            Description="{x:Bind domain:Translator.SettingsAppPreferences_Proxy_Description}"
+            Header="{x:Bind domain:Translator.SettingsAppPreferences_Proxy_Title}">
+            <ToggleSwitch
+                AutomationProperties.AutomationId="AppPreferencesProxyToggleSwitch"
+                IsOn="{x:Bind ViewModel.PreferencesService.IsApplicationProxyEnabled, Mode=TwoWay}" />
+            <controls:SettingsCard.HeaderIcon>
+                <coreControls:WinoFontIcon Icon="Globe" />
+            </controls:SettingsCard.HeaderIcon>
+        </controls:SettingsCard>
+
+        <controls:SettingsCard
+            AutomationProperties.AutomationId="AppPreferencesPageProxyServerCard"
+            Description="{x:Bind domain:Translator.SettingsAppPreferences_ProxyServer_Description}"
+            Header="{x:Bind domain:Translator.SettingsAppPreferences_ProxyServer_Title}">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBox
+                    Width="220"
+                    AutomationProperties.AutomationId="AppPreferencesProxyServerTextBox"
+                    PlaceholderText="{x:Bind domain:Translator.SettingsAppPreferences_ProxyServer_Placeholder}"
+                    Text="{x:Bind ViewModel.PreferencesService.ApplicationProxyServer, Mode=TwoWay}" />
+                <TextBox
+                    Width="90"
+                    AutomationProperties.AutomationId="AppPreferencesProxyPortTextBox"
+                    PlaceholderText="{x:Bind domain:Translator.SettingsAppPreferences_ProxyPort_Placeholder}"
+                    Text="{x:Bind ViewModel.PreferencesService.ApplicationProxyPort, Mode=TwoWay}" />
+            </StackPanel>
+        </controls:SettingsCard>
+
+        <controls:SettingsCard
             AutomationProperties.AutomationId="AppPreferencesPageSettingsCard8"
             Description="{x:Bind domain:Translator.SettingsAppPreferences_DisableAppModeTaskbarIconSwitch_Description}"
             Header="{x:Bind domain:Translator.SettingsAppPreferences_DisableAppModeTaskbarIconSwitch_Title}">
