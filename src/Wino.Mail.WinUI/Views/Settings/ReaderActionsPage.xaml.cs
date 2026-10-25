@@ -1,6 +1,7 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using WinRT;
 using Wino.Mail.ViewModels.Data;
 using Wino.Views.Abstract;
 using Windows.System;
@@ -15,6 +16,8 @@ public sealed partial class ReaderActionsPage : ReaderActionsPageAbstract
     }
 
     // GridView has no keyboard reordering, so Alt+arrow keys move the focused action.
+    [DynamicWindowsRuntimeCast(typeof(FrameworkElement))]
+    [DynamicWindowsRuntimeCast(typeof(Control))]
     private void ActionsGridView_PreviewKeyDown(object sender, KeyRoutedEventArgs e)
     {
         if (!e.KeyStatus.IsMenuKeyDown)
