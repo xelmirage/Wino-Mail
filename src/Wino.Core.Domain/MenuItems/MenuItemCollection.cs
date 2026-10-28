@@ -224,6 +224,11 @@ public class MenuItemCollection : ObservableRangeCollection<IMenuItem>
         });
     }
 
+    public async Task ClearFoldersAsync()
+    {
+        await _dispatcher.ExecuteOnUIThread(ClearFolderAreaMenuItems);
+    }
+
     /// <summary>
     /// Enables/disables account menu items in the list.
     /// </summary>

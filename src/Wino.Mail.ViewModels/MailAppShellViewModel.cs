@@ -1026,10 +1026,6 @@ public partial class MailAppShellViewModel : MailBaseViewModel,
             // Don't navigate to base folders that contain non-move target folders.
             // Theory: This is a special folder like Categories or More. Don't navigate to it.
 
-            // Prompt user rating dialog if eligible.
-            if (PlatformCapabilities.MicrosoftStore || PlatformCapabilities.AppleAppStore)
-                _ = _storeService.PromptRatingDialogAsync();
-
             await NavigateFolderAsync(baseFolderMenuItem);
         }
         else if (clickedMenuItem is MergedAccountMenuItem clickedMergedAccountMenuItem)
@@ -1056,8 +1052,18 @@ public partial class MailAppShellViewModel : MailBaseViewModel,
             }
             else
             {
-                // Clicked on the same account. Just navigate to Inbox.
-                await NavigateInboxAsync(clickedAccountMenuItem);
+                // Clicking the selected account again collapses its folders; another click expands them.
+                var hasVisibleFolders = false;
+                await ExecuteUIThread(() => hasVisibleFolders = MenuItems.OfType<IBaseFolderMenuItem>().Any()).ConfigureAwait(false);
+
+                if (hasVisibleFolders)
+                {
+                    await MenuItems.ClearFoldersAsync().ConfigureAwait(false);
+                }
+                else
+                {
+                    await ChangeLoadedAccountAsync(clickedAccountMenuItem);
+                }
             }
         }
     }
@@ -1274,9 +1280,6 @@ public partial class MailAppShellViewModel : MailBaseViewModel,
 
     public async Task HandleCreateNewMailAsync()
     {
-        if (PlatformCapabilities.MicrosoftStore || PlatformCapabilities.AppleAppStore)
-            _ = _storeService.PromptRatingDialogAsync();
-
         MailAccount operationAccount = null;
 
         // Check whether we have active folder item selected for any account.
